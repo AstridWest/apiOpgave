@@ -27,39 +27,19 @@ fetch(`http://marie-myapi.herokuapp.com/api/v1/animals?offset=${offset}&limit=5`
         <p class="animalsContainer__type">${element.type}</p>
         <a href="./data.html?animalId=${element._id}&backpage=${offset}" class="animalsContainer__details">Details</a>
         <a href="./update.html?animalId=${element._id}&backpage=${offset}" class="animalsContainer__update">Update</a>
-        <button class="deletebtn">Delete</button>`;
+        <a href="?animalId=${element._id}" class="deletebtn">Delete</a>`;
     
     animalsContainer.appendChild(li);
 
-    let url = new URLSearchParams(window.location.search)
     let animalId = url.get("animalId");
-
-    /*
-    const deltebtns = document.querySelectorAll(".deletebtn");
-    //console.log(deltebtn)
-
-    deltebtns.forEach(function(deletebtn){
-      deletebtn.addEventlistener("click", function(){
-        deleteAnimal(animalId)
-      })
-    })
-*/
-
-    const form = new FormData();
-
-    fetch(`http://marie-myapi.herokuapp.com/api/v1/animals/${animalId}`, {
-      "method": "DELETE",
-      "headers": {
-        "Content-Type": "multipart/form-data"
-      },
-      "body": form
-    })
-      .then(response => response.json())
-      .then(data => {
-        
-      })
-
-      });
+    
+     const deletebtns = document.querySelectorAll(".deletebtn");
+     deletebtns.forEach(function(deletebtn){
+       deletebtn.addEventListener("click", function(){
+         deleteAnimal(animalId)
+       })
+     })
+  })
 
     const footer = document.querySelector(".footer")
 
@@ -80,7 +60,17 @@ fetch(`http://marie-myapi.herokuapp.com/api/v1/animals?offset=${offset}&limit=5`
 
     let nextNode = document.createTextNode("Next");
         next.appendChild(nextNode)
-        footer.appendChild(next)
+        footer.appendChild(next);
+
+        function deleteAnimal(animalId){
+          fetch(`http://marie-myapi.herokuapp.com/api/v1/animals/${animalId}`, {
+            "method": "DELETE"
+          })
+            .then(response => response.json())
+            .then(data => {
+              console.log(data)
+            })
+        }
     
 })
 }
