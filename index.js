@@ -26,11 +26,40 @@ fetch(`http://marie-myapi.herokuapp.com/api/v1/animals?offset=${offset}&limit=5`
         <h2 class="animalsContainer__h2">${element.name}</h2>
         <p class="animalsContainer__type">${element.type}</p>
         <a href="./data.html?animalId=${element._id}&backpage=${offset}" class="animalsContainer__details">Details</a>
-        <a href="./update.html" class="animalsContainer__update">Update</a>
-        <button class="animalsContainer__delete">Delete</button>`;
+        <a href="./update.html?animalId=${element._id}&backpage=${offset}" class="animalsContainer__update">Update</a>
+        <button class="deletebtn">Delete</button>`;
     
     animalsContainer.appendChild(li);
-  });
+
+    let url = new URLSearchParams(window.location.search)
+    let animalId = url.get("animalId");
+
+    /*
+    const deltebtns = document.querySelectorAll(".deletebtn");
+    //console.log(deltebtn)
+
+    deltebtns.forEach(function(deletebtn){
+      deletebtn.addEventlistener("click", function(){
+        deleteAnimal(animalId)
+      })
+    })
+*/
+
+    const form = new FormData();
+
+    fetch(`http://marie-myapi.herokuapp.com/api/v1/animals/${animalId}`, {
+      "method": "DELETE",
+      "headers": {
+        "Content-Type": "multipart/form-data"
+      },
+      "body": form
+    })
+      .then(response => response.json())
+      .then(data => {
+        
+      })
+
+      });
 
     const footer = document.querySelector(".footer")
 

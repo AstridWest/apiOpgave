@@ -50,10 +50,9 @@ document.addEventListener("DOMContentLoaded", function(){
                 <td class="single-animal__td none">${data.colors}</td>
             </tr>
 
-        </table>
-            `
+        </table>`
+        
         singleElm.appendChild(div)
-       
 
         let back = document.createElement("a");
             back.setAttribute("href", `/?offset=${backpage}`);
